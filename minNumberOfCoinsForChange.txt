@@ -1,0 +1,48 @@
+Given and array of coins and a single integer, 
+implement a function that returns the smallest number of coins 
+needed to make a change for that target
+
+7, [1,5,10]
+
+function minNumberOfCoinsForChange(n,denoms){
+  let minCoin = []
+  for(let i = 0; i <= n; i++){
+    minCoin[i] = Infinity
+  }
+  minCoin[0] = 0
+  for(let i = 0; i < denoms.length; i++){
+    let currCoin = denoms[i]
+    for(let amount = 0; amount <= n; amount++){
+      if(currCoin <= amount){
+        let remainder = amount - currCoin
+        let totalCoins = minCoin[remainder] + 1
+        minCoin[amount] = Math.min(minCoin[amount], totalCoins)
+      }
+    }
+  }
+  return minCoin[n] === Infinity ? -1 : minCoin[n]
+}
+[0 1 2  3  4  1  2  3
+[0 1 2, 3, 4, 5, 6, 7]
+
+2 - 1 = 1 
+1 + 1(remainder Coin) = coins needed
+if(totalCoinsNeed < minCoins[i]){
+  minCoins[i] = totalCoinsNeeded
+}
+
+minCoins --> // Same size n + 1 --> allValues set to Infinity
+minCoins[0] = 0
+
+for(let i = 0; i < demons.length; i++){
+  let currCoin = demons[i]
+  for(let amount = 1; amount <= n; amount++){
+    if(currCoin <= amount){
+      let remainder = amount - currCoin
+      let remainderCoins = minCoins[remainder]
+      let totalCoins =  remainderCoins + 1
+      minCoins[amount] = Math.min(minCoins[amount], totalCoins)
+    }
+  }
+}
+return minCoins[n]
